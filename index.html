@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imad AI - Your AI Assistant</title>
+<style>
+body{margin:0;font-family:Arial;background:linear-gradient(135deg,#667eea,#764ba2);height:100vh;display:flex;flex-direction:column}
+.header{background:rgba(0,0,0,0.2);color:white;padding:15px;text-align:center;font-size:22px;font-weight:bold}
+#chat{flex:1;overflow-y:auto;padding:15px;display:flex;flex-direction:column;gap:10px}
+.msg{max-width:80%;padding:12px 16px;border-radius:18px;line-height:1.4}
+.user{background:white;align-self:flex-end;border-bottom-right-radius:4px}
+.bot{background:rgba(255,255,255,0.9);align-self:flex-start;border-bottom-left-radius:4px}
+.input-area{background:white;padding:10px;display:flex;gap:10px}
+#input{flex:1;padding:12px;border-radius:25px;border:1px solid #ddd;outline:none}
+button{padding:12px 20px;border-radius:25px;border:none;background:#667eea;color:white;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="header">🤖 Imad AI - by Imad</div>
+<div id="chat">
+<div class="msg bot">Salam Imad! Main aap ka AI Assistant hun. Aap mujhse kuch bhi pooch sakte hain!</div>
+</div>
+<div class="input-area">
+<input id="input" placeholder="Yahan likhein..." onkeypress="if(event.key==='Enter')send()">
+<button onclick="send()">Send</button>
+</div>
+<script>
+const chat=document.getElementById('chat');
+const inp=document.getElementById('input');
+function addMsg(text,cls){
+  const d=document.createElement('div');
+  d.className='msg '+cls;
+  d.textContent=text;
+  chat.appendChild(d);
+  chat.scrollTop=chat.scrollHeight;
+}
+function botReply(q){
+  q=q.toLowerCase();
+  if(q.includes('salam')||q.includes('hi')||q.includes('hello')) return 'Wa Alaikum Salam! Kaise hain aap? 😊';
+  if(q.includes('name')||q.includes('naam')) return 'Main Imad AI hun, Imad bhai ne mujhe banaya hai!';
+  if(q.includes('kya haal')||q.includes('kaise ho')) return 'Main bilkul theek hun! Aap sunao?';
+  if(q.includes('thank')) return 'Khush amdeed! Aur kuch chahiye to batayein.';
+  if(q.includes('pakistan')) return 'Pakistan Zindabad! 🇵🇰';
+  if(q.includes('help')||q.includes('madad')) return 'Haan bilkul, bolo kya help chahiye? Main coding, likhai, sawal jawab sab kar sakta hun.';
+  return 'Ye zabardast sawal hai! "'+q+'" ke bare me mera jawab hai: Main abhi seekh raha hun, lekin jaldi hi iska behtareen jawab dunga. Aap kuch aur poochein!';
+}
+function send(){
+  const t=inp.value.trim();
+  if(!t) return;
+  addMsg(t,'user');
+  inp.value='';
+  setTimeout(()=>{addMsg(botReply(t),'bot')},600);
+}
+</script>
+</body>
+</html>
